@@ -24,7 +24,7 @@ public class ArmyGeneratorIntegrationTest {
 	private ArmyGeneratorResource resource;
 
 	@MockBean
-	private static ArmyGeneratorService service;
+	private ArmyGeneratorService service;
 
 	@Test
 	public void test_ArmyGeneratorServiceResource_integration() {
@@ -35,6 +35,14 @@ public class ArmyGeneratorIntegrationTest {
 		TroopDTOJson body = ((TroopDTOJson)generatedTroops.getBody());
 		
 		Assertions.assertThat(body).isEqualTo(troopsToCheckAgainst);
+	}
+	
+	@Test
+	public void test_ArmyGeneratorServiceResource_integration_error() {		
+		ResponseEntity generatedTroops = resource.generateTroops(null);
+		String body = "" + generatedTroops.getBody();
+		
+		Assertions.assertThat(body).isEqualTo("Number of troops is too high or low.");
 	}
 
 	private TroopDTOJson createTroopDTO() {

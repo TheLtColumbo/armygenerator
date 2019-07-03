@@ -28,7 +28,7 @@ public class ArmyGeneratorResource {
 
 	@GetMapping(value = "/generate", produces = "application/json")
 	public ResponseEntity generateTroops(@RequestParam Integer numberOfTroops) {
-		if (numberOfTroops <= 0 || numberOfTroops >= Integer.MAX_VALUE) {
+		if (numberOfTroops == null || numberOfTroops <= 0 || numberOfTroops >= Integer.MAX_VALUE) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.TEXT_PLAIN)
 					.body(ERROR_NUMBER_OF_TROOPS);
 		}
